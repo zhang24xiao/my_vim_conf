@@ -12,7 +12,7 @@ nmap LB 0
 nmap LE $
 
 :set number
-set backspace=2
+
 " 将选中文本块复制到系统剪贴板
 vnoremap <Leader>y "+y
 
@@ -83,9 +83,9 @@ let g:Powerline_colorscheme='solarized256'
 
 " 总是高亮当前行/列
 set cursorline
-hi CursorLine cterm=none ctermbg=magenta ctermfg=white 
+hi CursorLine cterm=none ctermbg=magenta ctermfg=white guibg=darked guifg=white
 set cursorcolumn
-hi CursorColumn cterm=none ctermbg=magenta ctermfg=white
+hi CursorColumn cterm=none ctermbg=magenta ctermfg=white guibg=darked guifg=white
 " 高亮搜索结果
 set hlsearch
 
@@ -220,28 +220,35 @@ let g:ctrlp_map = '<Leader>p'
 let g:ctrlp_cmd = 'CtrlP'
 map <Leader>f :CtrlPMRU<CR>
 map <Leader>p :CtrlP<CR>
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files']
-let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
-    \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz|pyc)$',
-    \ }
+let g:ctrlp_user_command = 'find %s -type f -name "*.c" -o -name "*.cpp" -o -name "*.java" -o -name "*.dts" -o -name ".dtsi" -o -name "*.mk"' 
+"    \ ['.git', 'cd %s && git ls-files']
+"    \ ['.git', 'cd %s && git ls-files . -co --exclude-standard']
+ let g:ctrlp_custom_ignore = {
+    \ 'dir': '(out|abi|AMSS|build|cts|ndk|pdk|platform_testing|prebuilds|sdk|.git|.repo)',
+    \ 'file': '.(exe|so|dll|txt)',
+    \  }
+"    \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
+"    \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz|pyc)$',
+"    \ }
 let g:ctrlp_match_window_bottom=1
 let g:ctrlp_max_height=15
+let g:ctrlp_max_files=0
+let g:ctrlp_max_depth=40
 let g:ctrlp_match_window_reversed=0
-let g:ctrlp_mruf_max=500
+let g:ctrlp_mruf_max=0
 let g:ctrlp_follow_symlinks=1
 " 启动缓存 可以使用F5来清除缓存
 let g:ctrlp_use_caching = 1
 " 退出VIM时不删除缓存
-let g:ctrlp_clear_cache_on_exit=1
+let g:ctrlp_clear_cache_on_exit=0
 " 设置缓存文件的目录
 let g:ctrlp_cache_dir=$HOME.'/.cache/ctrlp'
 " 设置ctrlp不扫描隐藏文件和目录
-let g:ctrlp_show_hidden=0
+let g:ctrlp_show_hidden=1
 " 设置默认是否按文件名搜索（否则按全路经）
 let g:ctrlp_by_filename = 1
 " 当启动时，CtrlP依据这个变量来设置它的工作目录
-let g:ctrlp_working_path_mode='ra'
+let g:ctrlp_working_path_mode='0'
 
 map <Leader>ack :Ack <C-R><C-W> <C-R><C-X>
 
